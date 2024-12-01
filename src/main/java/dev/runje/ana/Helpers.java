@@ -3,7 +3,7 @@ package dev.runje.ana;
 public class Helpers {
 
     public static String getPath(String file, String[] directory){
-        return  "/Users/ana.runje/training/advent-of-code/src/main/resources/"
+        return "/Users/anarunje/IdeaProjects/advent_of_code/src/main/resources/"
                 +directory[directory.length-2]
                 +"/"+directory[directory.length-1]
                 +"/"
