@@ -20,29 +20,20 @@ public class Day03 {
 //        String inputFilePath = getPath("example", directory);
         int result1 = 0;
         int result2 = 0;
-        String regex = "mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\)";
+        String regex = "mul\\((\\d+),(\\d+)\\)|do\\(\\)|don't\\(\\)";
         Pattern pattern = Pattern.compile(regex);
-        Pattern pattern1 = Pattern.compile("\\d+");
         boolean doOperation = true;
         try {
             BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
             for (String line: br.lines().toList()) {
                 Matcher matcher = pattern.matcher(line);
                 while (matcher.find()) {
-                    String match = matcher.group();
-                    if (match.equals("do()")){
+                    if(matcher.group(0).equals("do()")){
                         doOperation = true;
-                    } else if(match.equals("don't()")) {
+                    } else if(matcher.group(0).equals("don't()")) {
                         doOperation = false;
                     } else {
-                        Matcher matcher1 = pattern1.matcher(match);
-                        int[] nums = {0, 0};
-                        int i = 0;
-                        while (matcher1.find()) {
-                            nums[i] = Integer.parseInt(matcher1.group());
-                            i++;
-                        }
-                        int mul = nums[0] * nums[1];
+                        int mul = Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2));
                         result1 += mul;
                         if(doOperation) result2 += mul;
                     }
