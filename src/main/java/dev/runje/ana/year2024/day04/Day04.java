@@ -27,7 +27,7 @@ public class Day04 {
                     result1 += numXmasFound(input, i, j);
                 }
                 for (int j = input.get(i).indexOf('A'); j >= 0; j = input.get(i).indexOf('A', j + 1)) {
-                    result2 += numXedMasFound(input, i, j);
+                    if (X_MasFound(input, i, j)) result2++;
                 }
             }
         } catch (Exception e) {
@@ -38,10 +38,8 @@ public class Day04 {
 
     }
 
-    private static int numXedMasFound(List<String> input, int i, int j) {
-        int numFound = 0;
-        if (checkRightDiagonalMas(input, i, j) && checkLeftDiagonalMas(input, i, j)) numFound++;
-        return numFound;
+    private static boolean X_MasFound(List<String> input, int i, int j) {
+        return checkRightDiagonalMas(input, i, j) && checkLeftDiagonalMas(input, i, j);
     }
 
     private static boolean checkLeftDiagonalMas(List<String> input, int i, int j) {
