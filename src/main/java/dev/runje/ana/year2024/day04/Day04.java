@@ -41,32 +41,7 @@ public class Day04 {
     private static int numXedMasFound(List<String> input, int i, int j) {
         int numFound = 0;
         if (checkRightDiagonalMas(input, i, j) && checkLeftDiagonalMas(input, i, j)) numFound++;
-        if (checkRightDiagonalMas(input, i, j) && checkLeftDiagonalReverseMas(input, i, j)) numFound++;
-        if (checkRightDiagonalReverseMas(input, i, j) && checkLeftDiagonalMas(input, i, j)) numFound++;
-        if (checkRightDiagonalReverseMas(input, i, j) && checkLeftDiagonalReverseMas(input, i, j)) numFound++;
         return numFound;
-    }
-
-    private static boolean checkLeftDiagonalReverseMas(List<String> input, int i, int j) {
-        if (i + 1 < input.size() && i - 1 >= 0 && j - 1 >= 0 && j + 1 < input.get(i).length()) {
-            char c0 = input.get(i + 1).charAt(j - 1);
-            char c1 = input.get(i).charAt(j);
-            char c2 = input.get(i - 1).charAt(j + 1);
-            String word = "" + c0 + c1 + c2;
-            return word.equals("MAS");
-        }
-        return false;
-    }
-
-    private static boolean checkRightDiagonalReverseMas(List<String> input, int i, int j) {
-        if (i + 1 < input.size() && i - 1 >= 0 && j - 1 >= 0 && j + 1 < input.get(i).length()) {
-            char c0 = input.get(i + 1).charAt(j + 1);
-            char c1 = input.get(i).charAt(j);
-            char c2 = input.get(i - 1).charAt(j - 1);
-            String word = "" + c0 + c1 + c2;
-            return word.equals("MAS");
-        }
-        return false;
     }
 
     private static boolean checkLeftDiagonalMas(List<String> input, int i, int j) {
@@ -75,7 +50,7 @@ public class Day04 {
             char c1 = input.get(i).charAt(j);
             char c2 = input.get(i + 1).charAt(j - 1);
             String word = "" + c0 + c1 + c2;
-            return word.equals("MAS");
+            return word.equals("MAS") || word.equals("SAM");
         }
         return false;
     }
@@ -86,7 +61,7 @@ public class Day04 {
             char c1 = input.get(i).charAt(j);
             char c2 = input.get(i + 1).charAt(j + 1);
             String word = "" + c0 + c1 + c2;
-            return word.equals("MAS");
+            return word.equals("MAS") || word.equals("SAM");
         }
         return false;
     }
