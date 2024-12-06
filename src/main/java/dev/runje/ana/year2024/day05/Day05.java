@@ -31,6 +31,7 @@ public class Day05 {
                     rules.add(rule);
                 }
             }
+            List<Integer> pagesList = createPagesList(rules);
             for (String line: lines){
                 if(line.length()>5){
                     int[] update = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
@@ -44,8 +45,9 @@ public class Day05 {
                     }
                     if(isValid) result1+= update[update.length/2];
                     else {
-                        List<Integer> ordered = sortPages(rules, Arrays.stream(update).boxed().toList());
-                        result2 += ordered.get(ordered.size()/2);
+                        List<Integer> pagesToUpdate = pagesList.stream().filter(p -> Arrays.stream(update).boxed().toList().contains(p)).toList();
+                        List<Integer> sortedPages = sortPages(rules, pagesToUpdate);
+                        result2 += sortedPages.get(sortedPages.size()/2);
                     }
                 }
             }
@@ -54,11 +56,21 @@ public class Day05 {
         }
         System.out.printf("Result of part 1: %d\n", result1);
         System.out.printf("Result of part 2: %d\n", result2);
+
+    }
+
+    private static List<Integer> createPagesList(List<Pair<Integer, Integer>> rules) {
+        List<Integer> pages = new ArrayList<>();
+        for (Pair<Integer, Integer> rule: rules) {
+            if (!pages.contains(rule.getValue0())) pages.add(rule.getValue0());
+            if (!pages.contains(rule.getValue1())) pages.add(rule.getValue1());
+        }
+        return pages;
     }
 
     private static List<Integer> sortPages(List<Pair<Integer, Integer>> rules, List<Integer> pagesList) {
         Integer[] pagesArray = pagesList.toArray(Integer[]::new);
-        for (int i = 0; i < rules.size(); i++) {
+        for (int i = 0; i <= rules.size(); i++) {
             for (Pair<Integer, Integer> rule: rules) {
                 int value0 = rule.getValue0();
                 int value1 = rule.getValue1();
